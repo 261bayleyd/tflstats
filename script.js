@@ -61,6 +61,17 @@ async function fetchLineStatus() {
             <strong>${lineName}</strong>
             <span>${statusDescription}</span>
           `;
+
+          // Add the detailed problem description (if exists)
+          const problemDescription = line.lineStatuses[0].statusSeverityDescription;
+          if (problemDescription && problemDescription !== 'Good Service') {
+            const problemElement = document.createElement('div');
+            problemElement.textContent = `Problem: ${problemDescription}`;
+            problemElement.style.fontStyle = 'italic';
+            problemElement.style.marginTop = '5px';
+            lineElement.appendChild(problemElement);
+          }
+
         } else {
           lineElement.innerHTML = `
             <strong>${line.name}</strong>
