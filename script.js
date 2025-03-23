@@ -38,10 +38,7 @@ async function fetchLineStatus() {
 
         if (line.lineStatuses && line.lineStatuses.length > 0) {
           const lineName = line.name;
-          const statusDescriptions = line.lineStatuses.map(status => status.statusSeverityDescription).join(', ');
-          const problemDescriptions = line.lineStatuses
-            .map(status => status.statusSeverityReasonDescription || "No detailed problem description")
-            .join(', ');  // Join all descriptions if more than one exists
+          const statusDescriptions = line.lineStatuses.map(status => status.statusSeverityDescription).join(', '); // Join all status descriptions
 
           // Get the colors for the line
           const colors = lineColors[lineName];
@@ -62,17 +59,8 @@ async function fetchLineStatus() {
           // Display line name and status descriptions
           lineElement.innerHTML = `
             <strong>${lineName}</strong>
-            <span>Status: ${statusDescriptions}</span>
+            <span>${statusDescriptions}</span>
           `;
-
-          // Display detailed problem descriptions
-          if (problemDescriptions !== "No detailed problem description") {
-            const problemElement = document.createElement('div');
-            problemElement.textContent = `Problems: ${problemDescriptions}`;
-            problemElement.style.fontStyle = 'italic';
-            problemElement.style.marginTop = '5px';
-            lineElement.appendChild(problemElement);
-          }
 
         } else {
           lineElement.innerHTML = `
