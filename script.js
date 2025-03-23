@@ -56,7 +56,7 @@ async function fetchLineStatus() {
             lineElement.classList.add('closed');
           }
 
-          // Display line name and status descriptions
+          // Display line name and status descriptions (with no "Status:" prefix)
           lineElement.innerHTML = `
             <strong>${lineName}</strong>
             <span>${statusDescriptions}</span>
