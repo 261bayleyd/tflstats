@@ -36,10 +36,12 @@ async function fetchLineStatus() {
         const lineElement = document.createElement('div');
         lineElement.classList.add('line-status');
 
-        if (line.lineStatuses && line.lineStatuses[0]) {
-          const statusDescription = line.lineStatuses[0].statusSeverityDescription;
+        if (line.lineStatuses && line.lineStatuses.length > 0) {
           const lineName = line.name;
-          const problemDescription = line.lineStatuses[0].statusSeverityReason || "No detailed problem description available";
+          const statusDescriptions = line.lineStatuses.map(status => status.statusSeverityDescription).join(', ');
+          const problemDescriptions = line.lineStatuses
+            .map(status => status.statusSeverityReasonDescription || "No detailed problem description")
+            .join(', ');  // Join all descriptions if more than one exists
 
           // Get the colors for the line
           const colors = lineColors[lineName];
@@ -51,22 +53,22 @@ async function fetchLineStatus() {
           }
 
           // Determine if the status is "Good Service" or another status
-          if (statusDescription === 'Good Service') {
+          if (statusDescriptions === 'Good Service') {
             lineElement.classList.add('open');
           } else {
             lineElement.classList.add('closed');
           }
 
-          // Display line name and status description
+          // Display line name and status descriptions
           lineElement.innerHTML = `
             <strong>${lineName}</strong>
-            <span>${statusDescription}</span>
+            <span>Status: ${statusDescriptions}</span>
           `;
 
-          // Display detailed problem description
-          if (problemDescription !== "No detailed problem description available") {
+          // Display detailed problem descriptions
+          if (problemDescriptions !== "No detailed problem description") {
             const problemElement = document.createElement('div');
-            problemElement.textContent = `Problem: ${problemDescription}`;
+            problemElement.textContent = `Problems: ${problemDescriptions}`;
             problemElement.style.fontStyle = 'italic';
             problemElement.style.marginTop = '5px';
             lineElement.appendChild(problemElement);
