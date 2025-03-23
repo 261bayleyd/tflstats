@@ -39,7 +39,8 @@ async function fetchLineStatus() {
         if (line.lineStatuses && line.lineStatuses[0]) {
           const statusDescription = line.lineStatuses[0].statusSeverityDescription;
           const lineName = line.name;
-          
+          const problemDescription = line.lineStatuses[0].statusSeverityReason || "No detailed problem description available";
+
           // Get the colors for the line
           const colors = lineColors[lineName];
 
@@ -62,9 +63,8 @@ async function fetchLineStatus() {
             <span>${statusDescription}</span>
           `;
 
-          // Add the detailed problem description (if exists)
-          const problemDescription = line.lineStatuses[0].statusSeverityDescription;
-          if (problemDescription && problemDescription !== 'Good Service') {
+          // Display detailed problem description
+          if (problemDescription !== "No detailed problem description available") {
             const problemElement = document.createElement('div');
             problemElement.textContent = `Problem: ${problemDescription}`;
             problemElement.style.fontStyle = 'italic';
