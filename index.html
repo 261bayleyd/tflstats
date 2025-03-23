@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TFL Tube Line Status</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+    #status {
+      margin-top: 20px;
+    }
+    .line-status {
+      margin: 5px 0;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .line-status.open {
+      background-color: #d4f5d4;
+    }
+    .line-status.closed {
+      background-color: #f5d4d4;
+    }
+  </style>
+</head>
+<body>
+  <h1>London Underground Line Status</h1>
+  <button id="fetchStatusButton">Fetch Line Status</button>
+
+  <div id="status"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
